@@ -1,0 +1,34 @@
+n = int(input())
+
+words = []
+
+for _ in range(n):
+  word = input()
+  words.append(word)
+  
+cnt = {}
+for num_ord in range(97,123):
+  cnt[chr(num_ord)] = float("inf")
+
+common = set(words[0])
+kinds = list(common)
+for k in kinds:
+  cnt[k] = words[0].count(k)
+
+for i in range(1,n):
+  common = common & set(words[i])
+  common_kinds = list(common)
+  for ck in common_kinds:
+    cnt[ck] = min(cnt[ck],words[i].count(ck))
+  
+common_list = sorted(list(common))
+
+ans = ""
+
+if len(common_list) >= 1:
+  for cl in common_list:
+    ans += (cl*cnt[cl])
+else:
+  ans = ""
+
+print(ans)
